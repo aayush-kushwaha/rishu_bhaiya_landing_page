@@ -127,6 +127,8 @@ gsap.from('.cta-buttons a', {
     stagger: 0.2,
     ease: 'power3.out',
     delay: 0.8
+}).then(() => {
+    gsap.set('.cta-buttons a', { clearProps: 'all' });
 });
 
 // Scroll animations for sections

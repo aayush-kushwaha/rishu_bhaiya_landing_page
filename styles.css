@@ -145,6 +145,19 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 25px rgba(100, 255, 218, 0.3); }
+    50% { box-shadow: 0 0 35px rgba(100, 255, 218, 0.5); }
+    100% { box-shadow: 0 0 25px rgba(100, 255, 218, 0.3); }
 }
 
 .hero-image:hover {
@@ -191,12 +204,37 @@ body {
 
 .cta-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
+    margin-top: 2rem;
     justify-content: center;
 }
 
 .cta-button {
     padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--accent-color);
+    background: rgba(74, 144, 226, 0.1);
+    border: 2px solid var(--accent-color);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cta-button:hover {
+    background: var(--accent-color);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(100, 255, 218, 0.4);
+}
+
+.cta-button i {
+    font-size: 1.1rem;
+}
     background: rgba(74, 144, 226, 0.2);
     color: white;
     text-decoration: none;
