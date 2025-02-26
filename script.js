@@ -138,7 +138,7 @@ gsap.utils.toArray('section').forEach(section => {
             trigger: section,
             start: 'top 80%',
             end: 'bottom 20%',
-            toggleActions: 'play none none reverse'
+            toggleActions: 'play none none none'
         },
         y: 50,
         opacity: 0,
@@ -175,8 +175,26 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Add active class to navigation links based on scroll position
 function updateActiveNavLink() {
     const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    const navHeight = document.querySelector('.glass-nav').offsetHeight;
+    document.addEventListener('DOMContentLoaded', function() {
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const navHeight = document.querySelector('.glass-nav').offsetHeight;
+    
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    const targetPosition = targetSection.offsetTop - navHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    });
     
     let current = '';
     const scrollPosition = window.scrollY + navHeight + 100; // Add offset for better detection
@@ -207,3 +225,26 @@ window.addEventListener('scroll', () => {
 
 // Initial call to set active link on page load
 updateActiveNavLink();
+// Mobile Navigation
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+const navOverlay = document.querySelector('.nav-overlay');
+
+function toggleMenu() {
+    menuToggle.classList.toggle('active');
+    navLinks.classList.toggle('active');
+    navOverlay.classList.toggle('active');
+    document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+}
+
+menuToggle.addEventListener('click', toggleMenu);
+navOverlay.addEventListener('click', toggleMenu);
+
+// Close menu when clicking nav links on mobile
+document.querySelectorAll('.nav-item').forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            toggleMenu();
+        }
+    });
+});
