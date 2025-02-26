@@ -50,6 +50,17 @@ document.addEventListener('DOMContentLoaded', () => {
         navLinks.classList.toggle('active');
     });
 
+    // Close mobile menu when nav links are clicked
+    const navLinkElements = document.querySelectorAll('.nav-links a');
+    navLinkElements.forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+    });
+
     // Close mobile menu when clicking outside
     document.addEventListener('click', (e) => {
         if (!hamburger.contains(e.target) && !navLinks.contains(e.target) && navLinks.classList.contains('active')) {
